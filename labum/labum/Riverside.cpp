@@ -11,6 +11,8 @@ Riverside::Riverside(const Vector3 & position) : StaticObject(position)
 Riverside::~Riverside()
 {
 }
+
+
 void Riverside::draw()
 {
 	glColor3f(.949f, 0.922f, 0.729f);
