@@ -88,6 +88,7 @@
     <ClCompile Include="CamPerspe.cpp" />
     <ClCompile Include="CamPerspeAll.cpp" />
     <ClCompile Include="LightSource.cpp" />
+    <ClCompile Include="LightStreetLamp.cpp" />
     <ClCompile Include="LightSun.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="dyCar.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="CamOrtho.h" />
     <ClInclude Include="CamPerspe.h" />
     <ClInclude Include="CamPerspeAll.h" />
+    <ClInclude Include="LightStreetLamp.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="LightSun.h" />
     <ClInclude Include="Model.h" />

@@ -289,6 +289,7 @@ void drawlines()
 
 void Road::draw()
 {
+	/*
 	glColor3f(0.22f, 0.216f, 0.216f);
 
 	glPushMatrix();
@@ -297,13 +298,44 @@ void Road::draw()
 
 	glScalef(2.f, .8f, .0f);
 	glutSolidCube(1);
+	glPopMatrix();
+	*/	
+	//glClear(GL_COLOR_BUFFER_BIT);
+	
+	
+	glPushMatrix();
+	glTranslatef(_position.getX(), _position.getY(), _position.getZ());
+	/**/
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_COLOR_MATERIAL);
+	// Set material properties
+	GLfloat qaBlack[] = { 0.0f, 0.0f, 0.0f, 1.0 };
+	GLfloat qaGreen[] = { 0.0, 1.0, 0.0, 1.0 };
+	GLfloat qaWhite[] = { 1.0, 1.0, 1.0, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, qaBlack);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, qaBlack);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, qaWhite);
+	glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 
-
+	// Draw square with many little squares
+	glBegin(GL_QUADS);
+	glNormal3f(0.0, 0.0, 1.0);
+	const GLfloat kqDelta = .01;
+	for (int i = -40; i < 40; ++i) {
+		for (int j = -110; j < 110; ++j) {
+			//glColor3f(0.22f, 0.216f, 0.216f);
+			glVertex3f(j*kqDelta, i*kqDelta, 0);
+			glVertex3f((j + 1)*kqDelta, i*kqDelta, 0);
+			glVertex3f((j + 1)*kqDelta, (i + 1)*kqDelta, 0);
+			glVertex3f(j*kqDelta, (i + 1)*kqDelta, 0);
+		}
+	}
+	glEnd();
 	glPopMatrix();
 	
 	glPushMatrix();
 		drawlines();
 	glPopMatrix();
-
+	
 }
 

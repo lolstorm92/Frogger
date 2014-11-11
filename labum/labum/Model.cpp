@@ -141,7 +141,7 @@ int Model::getDisplayList(char* path)
 
 void Model::load()
 {
-	models[MODEL_FROG] = getDisplayList("frog.obj");
+	models[MODEL_FROG] = getDisplayList("Frog.obj");
 }
 
 void Model::draw(int model_id)

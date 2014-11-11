@@ -1,2 +1,38 @@
-﻿  GameManager.cpp
-  labum.vcxproj -> C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\froggerV1.6\labum\Debug\labum.exe
+﻿Build started 11/11/2014 18:12:04.
+     1>Project "C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\labum\labum.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iglut/include/ /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LightStreetLamp.cpp
+         LightStreetLamp.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\Debug\labum.exe" /INCREMENTAL /NOLOGO /LIBPATH:glut/lib/ glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\Debug\labum.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\Debug\labum.lib" /MACHINE:X86 Debug\CamOrtho.obj
+         Debug\CamPerspe.obj
+         Debug\CamPerspeAll.obj
+         Debug\LightSource.obj
+         Debug\LightStreetLamp.obj
+         Debug\LightSun.obj
+         Debug\Model.obj
+         Debug\dyCar.obj
+         Debug\dyFrog.obj
+         Debug\dyLog.obj
+         Debug\dyRV.obj
+         Debug\dyTurtle.obj
+         Debug\dyWoodenLog.obj
+         Debug\FinalFlower.obj
+         Debug\main.obj
+         Debug\DynamincObject.obj
+         Debug\Entity.obj
+         Debug\GameManager.obj
+         Debug\MyCamera.obj
+         Debug\River.obj
+         Debug\RiverRoad.obj
+         Debug\Riverside.obj
+         Debug\Road.obj
+         Debug\Roadside.obj
+         Debug\Vector3.obj
+         Debug\Vector4.obj
+         labum.vcxproj -> C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\Debug\labum.exe
+     1>Done Building Project "C:\Users\Ricardo\Documents\Visual Studio 2013\Projects\Frog\Frogger\labum\labum\labum.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.31

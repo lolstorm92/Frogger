@@ -23,6 +23,7 @@
 #include "RiverRoad.h"
 #include "FinalFlower.h"
 #include "LightSource.h"
+#include "LightStreetLamp.h"
 #include "LightSun.h"
 
 #include "MyCamera.h"
@@ -37,7 +38,7 @@
 #define _CRT_SECURE_NO_Warnings
 #define _CRTDBG_MAP_ALLOC
 #define CAMERA_COUNT 3
-#define LIGHT_COUNT 1
+#define LIGHT_COUNT 2
 #define OBJECT_MOVING_CAR_COUNT 8
 #define OBJECT_MOVING_RV_COUNT 4
 #define OBJECT_MOVING_LOG_COUNT 12
@@ -76,6 +77,7 @@ private:
 	MyCamera * _camera[CAMERA_COUNT];
 	LightSource * _light[LIGHT_COUNT];
 	LightSun * _sun;
+	LightStreetLamp * _lamp;
 	MyCamera * _active_cam;
 	int _time;
 	int _spawntime;

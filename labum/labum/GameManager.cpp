@@ -18,6 +18,7 @@ GameManager::GameManager()
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
 	/*
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -73,6 +74,7 @@ void GameManager::init(void)
 	_screenHeight = SCREEN_WIDTH;
 	_model.load();
 	srand(time(NULL));
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 	_game_objects[obj++] =  new Road(Vector3(0.0f, -.5f, 0.0f));
 	_game_objects[obj++] = _river =  new River(Vector3(0.0f, .55f, -0.05f));
 	_game_objects[obj++] = new Roadside(Vector3(0.0f, -0.95f, 0.0f));
@@ -178,9 +180,20 @@ void GameManager::init(void)
 	}
 	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
-		_light[i] = _sun = new LightSun(GL_LIGHT0);
+		switch (i)
+		{
+			case 0:
+				_light[i] = _sun = new LightSun(GL_LIGHT0);
+
+				//Camera Perspectiva
+			case 1:
+				_light[i] = _lamp = new LightStreetLamp(GL_LIGHT1);
+		}
 	}
+	
+	_active_cam->Reshape2(_screenWidth, _screenHeight, _frog->getPosition()->getX(), _frog->getPosition()->getY(), _frog->getPosition()->getZ());
 	_sun->refresh();
+	_lamp->refresh();
 	//bool res = loadOBJ("frog.obj", vertices, uvs, normals);
 	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vector3), &vertices[0], GL_STATIC_DRAW);
 
@@ -189,7 +202,7 @@ void GameManager::display(void){
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	_active_cam->Reshape2(_screenWidth, _screenHeight, _frog->getPosition()->getX(), _frog->getPosition()->getY(), _frog->getPosition()->getZ());
-	
+	_sun->refresh();
 	//_light[0]->draw();
 	for (int i = 0; i < OBJECT_MOVING_TURTLES_COUNT; i++){
 		if (_turt[i] && _turt[i]->isdefined == 'D')
@@ -213,7 +226,8 @@ void GameManager::display(void){
 	}
 	
 	_frog->draw();
-	_sun->draw();
+	//_sun->draw();
+	//_lamp->draw();
 	glFlush();
 }
 
@@ -302,14 +316,20 @@ void GameManager::keypressed(unsigned char key, int x, int y){
 	case 49:
 		_active_cam = _camera[ORTHO];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
+		_sun->refresh();
+		_lamp->refresh();
 		break;
 	case 50:
 		_active_cam = _camera[PERSP];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
+		_sun->refresh();
+		_lamp->refresh();
 		break;
 	case 51:
 		_active_cam = _camera[THIRD_PERSON];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
+		_sun->refresh();
+		_lamp->refresh();
 		break;
 	case 'n':
 		if (_light[0]->getState()){
@@ -386,6 +406,7 @@ void GameManager::update(){
 	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
 	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 0.0);
 	*/
+	_lamp->refresh();
 	_time = time;
 		if (_frog )
 				_frog->update(delta_time);

@@ -90,6 +90,9 @@
     <ClCompile Include="LightSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LightStreetLamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -176,10 +179,13 @@
     <ClInclude Include="Vector4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightSun.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightStreetLamp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

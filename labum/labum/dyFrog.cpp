@@ -114,12 +114,14 @@ void dyFrog::draw()
 }
 void dyFrog::draw(Model * _model){
 	
+	glPushMatrix();
 	glColor3f(0.31f, 0.455f, 0.314f);
 	glTranslatef(_position.getX(), _position.getY(), _position.getZ()-0.03);
 	glScalef(0.01f, 0.006f, 0.01f);
 	glRotated(180, 0, 0, 1);
 	glRotated(90, 1, 0, 0);
 	_model->draw(MODEL_FROG);
+	glPopMatrix();
 }
 
 void dyFrog::update(double delta)
