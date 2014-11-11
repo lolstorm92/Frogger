@@ -38,7 +38,8 @@
 #define _CRT_SECURE_NO_Warnings
 #define _CRTDBG_MAP_ALLOC
 #define CAMERA_COUNT 3
-#define LIGHT_COUNT 2
+#define LIGHT_COUNT 7
+#define LIGHT_LAMP_COUNT 6
 #define OBJECT_MOVING_CAR_COUNT 8
 #define OBJECT_MOVING_RV_COUNT 4
 #define OBJECT_MOVING_LOG_COUNT 12
@@ -77,7 +78,7 @@ private:
 	MyCamera * _camera[CAMERA_COUNT];
 	LightSource * _light[LIGHT_COUNT];
 	LightSun * _sun;
-	LightStreetLamp * _lamp;
+	LightStreetLamp * _lamp[LIGHT_LAMP_COUNT];
 	MyCamera * _active_cam;
 	int _time;
 	int _spawntime;

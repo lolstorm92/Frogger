@@ -44,7 +44,7 @@ void drawMesh()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, qaGreen);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, qaGreen);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, qaWhite);
-	glMaterialf(GL_FRONT, GL_SHININESS, 1110.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 	//glBegin(GL_TRIANGLE_FAN);
 	//
 	// glColor3f(0.67f, 0.20, 0.1);

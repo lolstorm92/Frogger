@@ -184,16 +184,32 @@ void GameManager::init(void)
 		{
 			case 0:
 				_light[i] = _sun = new LightSun(GL_LIGHT0);
-
-				//Camera Perspectiva
+				break;
 			case 1:
-				_light[i] = _lamp = new LightStreetLamp(GL_LIGHT1);
+				_light[i] = _lamp[0] = new LightStreetLamp(GL_LIGHT1, -0.9f, 0.9f, 0.9f, 1.0f);
+				break;
+			case 2:
+				_light[i] = _lamp[1] = new LightStreetLamp(GL_LIGHT2, -0.9f, 0.0f, 0.9f, 1.0f);
+				break;
+			case 3:
+				_light[i] = _lamp[2] = new LightStreetLamp(GL_LIGHT3, -0.9f, -0.95f, 0.9f, 1.0f);
+				break;
+			case 4:
+				_light[i] = _lamp[3] = new LightStreetLamp(GL_LIGHT4, 0.9f, 0.9f, 0.9f, 1.0f);
+				break;
+			case 5:
+				_light[i] = _lamp[4] = new LightStreetLamp(GL_LIGHT5, 0.9f, 0.0f, 0.9f, 1.0f);
+				break;
+			case 6:
+				_light[i] = _lamp[5] = new LightStreetLamp(GL_LIGHT6, 0.9f, -0.95f, 0.9f, 1.0f);
+				break;
 		}
 	}
 	
 	_active_cam->Reshape2(_screenWidth, _screenHeight, _frog->getPosition()->getX(), _frog->getPosition()->getY(), _frog->getPosition()->getZ());
 	_sun->refresh();
-	_lamp->refresh();
+	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+		_lamp[i]->refresh();
 	//bool res = loadOBJ("frog.obj", vertices, uvs, normals);
 	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vector3), &vertices[0], GL_STATIC_DRAW);
 
@@ -227,7 +243,8 @@ void GameManager::display(void){
 	
 	_frog->draw();
 	//_sun->draw();
-	//_lamp->draw();
+	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+		_lamp[i]->draw();
 	glFlush();
 }
 
@@ -317,19 +334,22 @@ void GameManager::keypressed(unsigned char key, int x, int y){
 		_active_cam = _camera[ORTHO];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
 		_sun->refresh();
-		_lamp->refresh();
+		for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+			_lamp[i]->refresh();
 		break;
 	case 50:
 		_active_cam = _camera[PERSP];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
 		_sun->refresh();
-		_lamp->refresh();
+		for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+			_lamp[i]->refresh();
 		break;
 	case 51:
 		_active_cam = _camera[THIRD_PERSON];
 		_active_cam->Reshape(_screenWidth, _screenHeight);
 		_sun->refresh();
-		_lamp->refresh();
+		for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+			_lamp[i]->refresh();
 		break;
 	case 'n':
 		if (_light[0]->getState()){
@@ -343,7 +363,23 @@ void GameManager::keypressed(unsigned char key, int x, int y){
 			_light[0]->setState(true);
 		}
 		break;
+	case 'c':
+		for (int i = 0; i < LIGHT_LAMP_COUNT; i++){
+			if (_lamp[i]->getState()){
+				_lamp[i]->darkness();
+				_lamp[i]->refresh();
+				_lamp[i]->setState(false);
+			}
+			else{
+				_lamp[i]->daylight();
+				_lamp[i]->refresh();
+				_lamp[i]->setState(true);
+			}
+		}
+		break;
+		
 	}
+	
 	
 		
 
@@ -406,7 +442,8 @@ void GameManager::update(){
 	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
 	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 0.0);
 	*/
-	_lamp->refresh();
+	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
+		_lamp[i]->refresh();
 	_time = time;
 		if (_frog )
 				_frog->update(delta_time);
