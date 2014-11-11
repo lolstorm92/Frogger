@@ -9,5 +9,6 @@ public:
 	~Road(void);
 
 	virtual void draw();
+
 };
 
