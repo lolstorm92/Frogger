@@ -90,6 +90,7 @@
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="LightStreetLamp.cpp" />
     <ClCompile Include="LightSun.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="dyCar.cpp" />
     <ClCompile Include="dyFrog.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="LightStreetLamp.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="LightSun.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="dyCar.h" />
     <ClInclude Include="dyFrog.h" />

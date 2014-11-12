@@ -82,6 +82,7 @@ private:
 	MyCamera * _active_cam;
 	int _time;
 	int _spawntime;
+	bool _disablelighting;
 	int _spawntimeCar;
 	int indiceLog;
 	int indiceTurtle;
@@ -92,6 +93,7 @@ private:
 	float _screenHeight;
 	Model _model;
 	River * _river;
+	Road * _road;
 	dyFrog * _frog;
 
 	dyCar * _cars[OBJECT_MOVING_CAR_COUNT];

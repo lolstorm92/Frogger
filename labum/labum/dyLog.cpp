@@ -35,7 +35,17 @@ void dyLog::draw()
 
 	}
 }
+void dyLog::draw(Model * _model){
 
+	glPushMatrix();
+	//glColor3f(0.31f, 0.455f, 0.314f);
+	glTranslatef(_position.getX(), _position.getY(), _position.getZ() - 0.02);
+	glScalef(0.05f, 0.12f, 0.12f);
+	glRotated(270, 0, 0, 1);
+	glRotated(90, 1, 0, 0);
+	_model->draw(MODEL_LOG);
+	glPopMatrix();
+}
 void dyLog::update(double delta)
 {
 	//_position = _position + (_speed * delta);

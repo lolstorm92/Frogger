@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "StaticObject.h"
 #include "Header.h"
+#include "Model.h"
 class Road : public StaticObject
 {
 public:
@@ -9,6 +10,7 @@ public:
 	~Road(void);
 
 	virtual void draw();
+	void draw(Model * _model);
 
 };
 

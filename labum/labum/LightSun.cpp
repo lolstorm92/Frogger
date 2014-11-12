@@ -6,23 +6,16 @@ LightSun::LightSun(GLenum light) {
 	_GLenum = light;
 	setAmbient(Vector4(0.8, 0.8, 0.8, 1.0));
 	setDiffuse(Vector4(0.2, 0.2, 0.2, 1.0));
-	setSpecular(Vector4(1.0, 1.0, 1.0, 1.0));
-	setPosition(Vector4(0.0, 0.0, 50, 1.0));
+	setSpecular(Vector4(0.5, 0.5, 0.5, 0.5));
+	setPosition(Vector4(0.0, 0.0, 10, 0.0));
 	setState(true);
+	glEnable(_GLenum);
 }
 LightSun::~LightSun(){
 
 }
 void LightSun::refresh(){
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	//limpa os buffers especificados
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_COLOR_MATERIAL);
-	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_LIGHTING);
-	glEnable(_GLenum);
-	glEnable(GL_CULL_FACE);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glLightfv(_GLenum, GL_AMBIENT, _ambient);
 	glLightfv(_GLenum, GL_DIFFUSE, _diffuse);
 	glLightfv(_GLenum, GL_SPECULAR, _specular);
@@ -48,5 +41,5 @@ void LightSun::darkness(){
 void LightSun::daylight(){
 	setAmbient(Vector4(0.8, 0.8, 0.8, 1.0));
 	setDiffuse(Vector4(0.2, 0.2, 0.2, 1.0));
-	setSpecular(Vector4(1.0, 1.0, 1.0, 1.0));
+	setSpecular(Vector4(0.5, 0.5, 0.5, 0.5));
 }

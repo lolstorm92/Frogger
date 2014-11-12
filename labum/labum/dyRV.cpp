@@ -165,7 +165,17 @@ void dyRV::draw()
 _position.set(_position.getX() + _speed.getX() *delta, _position.getY() + _speed.getY()*delta, _position.getZ() + _speed.getZ()*delta);
 }*/
 
+void dyRV::draw(Model * _model){
 
+	glPushMatrix();
+	//glColor3f(0.31f, 0.455f, 0.314f);
+	glTranslatef(_position.getX(), _position.getY(), _position.getZ() - 0.2);
+	glScalef(0.05f, 0.05f, 0.05f);
+	//glRotated(180, 0, 0, 1);
+	glRotated(90, 1, 0, 0);
+	_model->draw(MODEL_TRUCK);
+	glPopMatrix();
+}
 void dyRV::update(double delta)
 {
 	//int asd = (round((delta * 11) / 5000));

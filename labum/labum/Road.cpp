@@ -38,13 +38,14 @@ void drawlines()
 }
 void drawMesh()
 {
-	GLfloat qaBlack[] = { 0.52f, 0.516f, 0.516f, 0.20 };
+	/**/
+	GLfloat qaBlack[] = { 0.0f, 0.0f, 0.0f, 0.0 };
 	GLfloat qaGreen[] = { 0.0, 1.0, 0.0, 1.0 };
-	GLfloat qaWhite[] = { 0.20, 0.20, 0.20, 0.20 };
-	glMaterialfv(GL_FRONT, GL_AMBIENT, qaGreen);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, qaGreen);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, qaWhite);
-	glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
+	GLfloat qaWhite[] = { 1.0, 1.0, 1.0, 1.0 };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, qaBlack);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, qaBlack);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, qaBlack);
+	glMaterialf(GL_FRONT, GL_SHININESS, 0.0);
 	//glBegin(GL_TRIANGLE_FAN);
 	//
 	// glColor3f(0.67f, 0.20, 0.1);
@@ -115,5 +116,16 @@ void Road::draw()
 			glTranslatef(0.0, 0.5, -1.2);
 			drawlines();
 		glPopMatrix();
+	glPopMatrix();
+}
+void Road::draw(Model * _model){
+
+	glPushMatrix();
+	//glColor3f(0.31f, 0.455f, 0.314f);
+	glTranslatef(_position.getX(), _position.getY(), _position.getZ() - 0.1);
+	glScalef(0.19f, 0.155f, 0.1f);
+	glRotated(180, 0, 0, 1);
+	glRotated(90, 1, 0, 0);
+	_model->draw(MODEL_ROAD);
 	glPopMatrix();
 }

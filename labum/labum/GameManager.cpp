@@ -19,6 +19,11 @@ GameManager::GameManager()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
+	glEnable(GL_LIGHTING);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	/*
 	glEnable(GL_COLOR_MATERIAL);
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -73,9 +78,10 @@ void GameManager::init(void)
 	_screenWidth = SCREEN_HEIGHT;
 	_screenHeight = SCREEN_WIDTH;
 	_model.load();
+	_disablelighting = false;
 	srand(time(NULL));
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-	_game_objects[obj++] =  new Road(Vector3(0.0f, -.5f, 0.0f));
+	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+	_game_objects[obj++] = _road =  new Road(Vector3(0.0f, -.5f, 0.0f));
 	_game_objects[obj++] = _river =  new River(Vector3(0.0f, .55f, -0.05f));
 	_game_objects[obj++] = new Roadside(Vector3(0.0f, -0.95f, 0.0f));
 	//_game_objects[3] = new Roadside(Vector3(0.0f, 0.1f, 0.0f));
@@ -186,30 +192,30 @@ void GameManager::init(void)
 				_light[i] = _sun = new LightSun(GL_LIGHT0);
 				break;
 			case 1:
-				_light[i] = _lamp[0] = new LightStreetLamp(GL_LIGHT1, -0.9f, 0.9f, 0.9f, 1.0f);
+				_light[i] = _lamp[0] = new LightStreetLamp(GL_LIGHT1, -0.9f, 0.9f, 0.2f, 1.0f,Vector3(1.0f,0.0f,-1.0f));
 				break;
 			case 2:
-				_light[i] = _lamp[1] = new LightStreetLamp(GL_LIGHT2, -0.9f, 0.0f, 0.9f, 1.0f);
+				_light[i] = _lamp[1] = new LightStreetLamp(GL_LIGHT2, -0.9f, 0.0f, 0.2f, 1.0f, Vector3(1.0f, 0.0f, -1.0f));
 				break;
 			case 3:
-				_light[i] = _lamp[2] = new LightStreetLamp(GL_LIGHT3, -0.9f, -0.95f, 0.9f, 1.0f);
+				_light[i] = _lamp[2] = new LightStreetLamp(GL_LIGHT3, -0.9f, -0.95f, 0.2f, 1.0f, Vector3(1.0f, 0.0f, -1.0f));
 				break;
 			case 4:
-				_light[i] = _lamp[3] = new LightStreetLamp(GL_LIGHT4, 0.9f, 0.9f, 0.9f, 1.0f);
+				_light[i] = _lamp[3] = new LightStreetLamp(GL_LIGHT4, 0.9f, 0.9f, 0.2f, 1.0f, Vector3(-1.0f, 0.0f, -1.0f));
 				break;
 			case 5:
-				_light[i] = _lamp[4] = new LightStreetLamp(GL_LIGHT5, 0.9f, 0.0f, 0.9f, 1.0f);
+				_light[i] = _lamp[4] = new LightStreetLamp(GL_LIGHT5, 0.9f, 0.0f, 0.2f, 1.0f, Vector3(-1.0f, 0.0f, -1.0f));
 				break;
 			case 6:
-				_light[i] = _lamp[5] = new LightStreetLamp(GL_LIGHT6, 0.9f, -0.95f, 0.9f, 1.0f);
+				_light[i] = _lamp[5] = new LightStreetLamp(GL_LIGHT6, 0.9f, -0.95f, 0.2f, 1.0f, Vector3(-1.0f, 0.0f, -1.0f));
 				break;
 		}
 	}
 	
 	_active_cam->Reshape2(_screenWidth, _screenHeight, _frog->getPosition()->getX(), _frog->getPosition()->getY(), _frog->getPosition()->getZ());
-	_sun->refresh();
+	/*_sun->refresh();
 	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
-		_lamp[i]->refresh();
+		_lamp[i]->refresh();*/
 	//bool res = loadOBJ("frog.obj", vertices, uvs, normals);
 	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vector3), &vertices[0], GL_STATIC_DRAW);
 
@@ -218,30 +224,32 @@ void GameManager::display(void){
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	_active_cam->Reshape2(_screenWidth, _screenHeight, _frog->getPosition()->getX(), _frog->getPosition()->getY(), _frog->getPosition()->getZ());
-	_sun->refresh();
+	
 	//_light[0]->draw();
 	for (int i = 0; i < OBJECT_MOVING_TURTLES_COUNT; i++){
 		if (_turt[i] && _turt[i]->isdefined == 'D')
 			_turt[i]->draw();
 	}
-	for (int i = 0; i < 6; i++){
+	_road->draw(&_model);
+	_river->draw(&_model);
+	for (int i = 2; i < 6; i++){
 		if (_game_objects[i])
 			_game_objects[i]->draw();
 	}
 	for (int i = 0; i < OBJECT_MOVING_CAR_COUNT; i++){
 		if (_cars[i] && _cars[i]->isdefined == 'D')
-			_cars[i]->draw();
+			_cars[i]->draw(&_model);
 	}
 	for (int i = 0; i < OBJECT_MOVING_RV_COUNT; i++){
 		if (_rvs[i] && _rvs[i]->isdefined == 'D')
-			_rvs[i]->draw();
+			_rvs[i]->draw(&_model);
 	}
 	for (int i = 0; i < OBJECT_MOVING_LOG_COUNT; i++){
 		if (_logs[i] && _logs[i]->isdefined == 'D')
-			_logs[i]->draw();
+			_logs[i]->draw(&_model);
 	}
 	
-	_frog->draw();
+	_frog->draw(&_model);
 	//_sun->draw();
 	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
 		_lamp[i]->draw();
@@ -377,7 +385,9 @@ void GameManager::keypressed(unsigned char key, int x, int y){
 			}
 		}
 		break;
-		
+	case 'l':
+		_disablelighting = !_disablelighting;
+		break;
 	}
 	
 	
@@ -430,20 +440,13 @@ void GameManager::update(){
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
 	int delta_time = (time - _time)/11;
-	/*
-	light_position[1] = _frog->getPosition()->getX() + 9;
-	light_position[2] = _frog->getPosition()->getY();
-	light_position[3] = _frog->getPosition()->getZ()+2.0;
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 35);
-	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
-	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 0.0);
-	*/
+	if (_disablelighting)
+		glDisable(GL_LIGHTING);
+	else
+		glEnable(GL_LIGHTING);
 	for (int i = 0; i < LIGHT_LAMP_COUNT; i++)
 		_lamp[i]->refresh();
+	_sun->refresh();
 	_time = time;
 		if (_frog )
 				_frog->update(delta_time);
